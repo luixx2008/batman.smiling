@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#e63946">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>Hotdogs y Hamburguesas Don Goyo</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        :root {
+            --rojo: #910000;
+            --verde: #062E02;
+            --amarillo: #FFDC03;
+            --blanco: #f1faee;
+            --oscuro: #1d3557;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--blanco);
+            color: var(--oscuro);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px 0;
+            background: var(--rojo);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: white;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px  #008CD1;
+        }
+        
+        .slogan {
+            font-size: 1.2rem;
+            color: white;
+            font-style: italic;
+            margin-top: 5px;
+        }
+        
+        .info {
+            background-color: var(--verde);
+            color: white;
+            padding: 15px;
+            
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+
+       
+   			border: 3px solid var(--rojo);
+        }
+        
+        .horario {
+            background-color: var(--amarillo);
+            color: var(--oscuro);
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+
+            border: 3px solid var(--rojo);
+        }
+        
+        .menu-section {
+            margin-bottom: 30px;
+        }
+        
+        .menu-section h2 {
+            background-color: var(--rojo);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+
+            border: 3px solid #008cd1n;
+        }
+        
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px dashed #ccc;
+        }
+        
+        .item-info {
+            flex: 1;
+        }
+        
+        .item-name {
+            font-weight: bold;
+        }
+        
+        .item-price {
+            color: var(--rojo);
+            font-weight: bold;
+        }
+        
+        .quantity-control {
+            display: flex;
+            align-items: center;
+        }
+        
+        .quantity-btn {
+            background-color: var(--verde);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            padding: 0;
+            box-sizing: border-box;
+            line-height: 1;
+            flex: none;
+            min-width: auto;
+        }
+        
+        .quantity {
+            margin: 0 10px;
+            font-weight: bold;
+            min-width: 20px;
+            text-align: center;
+        }
+        
+        .observaciones {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 20px;
+            resize: vertical;
+        }
+        
+        .resumen {
+            background-color: var(--blanco);
+            border: 2px solid var(--verde);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        
+        .resumen h3 {
+            color: var(--verde);
+            margin-bottom: 10px;
+        }
+        
+        .resumen-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .total {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--rojo);
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+        
+        .botones {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .botones-adicionales {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        .btn-confirmar {
+            background-color: var(--verde);
+            color: white;
+        }
+        
+        .btn-enviar {
+            background-color: var(--rojo);
+            color: white;
+        }
+        
+        .btn-cancelar {
+            background-color: #ccc;
+            color: var(--oscuro);
+        }
+        
+        .btn-consulta {
+            background-color: var(--amarillo);
+            color: var(--oscuro);
+        }
+        
+        .btn-ubicacion {
+            background-color: var(--verde);
+            color: white;
+        }
+        
+        .btn-instalar {
+            background-color: var(--rojo);
+            color: white;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .modal h2 {
+            color: var(--rojo);
+            margin-bottom: 15px;
+        }
+        
+        .alerta {
+            background-color: var(--amarillo);
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .no-disponible {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .no-disponible h2 {
+            color: var(--rojo);
+            margin-bottom: 15px;
+        }
+        
+        .ubicacion {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .instrucciones-instalacion {
+            background-color: var(--blanco);
+            border: 2px solid var(--amarillo);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .instrucciones-instalacion h3 {
+            color: var(--rojo);
+            margin-bottom: 10px;
+        }
+        
+        .instrucciones-pasos {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .paso {
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 600px) {
+            .botones {
+                flex-direction: column;
+            }
+            
+            button {
+                width: 100%;
+            }
+        }
+
+
+        .word {
+          margin: auto;
+          color: white;
+          font: 700 normal 2.5em 'tahoma';
+          text-shadow: 5px 2px #222324, 2px 4px #222324, 3px 5px #222324;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Hot-dogs y Hamburguesas Don Goyo</h1>
+            <p class="slogan">Para el paladar de los mejores conocedores!</p>
+        </header>
+        
+        <div class="info">
+            <p>Recoge tu pedido en nuestra sucursal de la Colonia Libertad Poniente de Castaños</p>
+        </div>
+        
+        <div class="horario">
+            <p>¡Atención! Solo atendemos Jueves a Domingo de 8:00 PM a 12:00 AM</p>
+            <p>Tiempo estimado de entrega: 15 minutos (puede variar según la demanda)</p>
+        </div>
+        
+        <div id="menu-disponible">
+            <div class="menu-section">
+                <h2>Hamburguesas</h2>
+                <div class="menu-item">
+                    <div class="item-info">
+                        <div class="item-name">Hamburguesa de Res</div>
+                        <div class="item-description">Deliciosa hamburguesa de res con nuestros ingredientes secretos</div>
+                    </div>
+                    <div class="item-price">$60</div>
+                    <div class="quantity-control">
+                        <button class="quantity-btn minus" data-item="hamburguesa-res">-</button>
+                        <span class="quantity" id="cantidad-hamburguesa-res">0</span>
+                        <button class="quantity-btn plus" data-item="hamburguesa-res">+</button>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="item-info">
+                        <div class="item-name">Hamburguesa de Res con Papas</div>
+                        <div class="item-description">Hamburguesa de res acompañada de papas a la francesa</div>
+                    </div>
+                    <div class="item-price">$100</div>
+                    <div class="quantity-control">
+                        <button class="quantity-btn minus" data-item="hamburguesa-res-papas">-</button>
+                        <span class="quantity" id="cantidad-hamburguesa-res-papas">0</span>
+                        <button class="quantity-btn plus" data-item="hamburguesa-res-papas">+</button>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="item-info">
+                        <div class="item-name">Hamburguesa de Pollo</div>
+                        <div class="item-description">Suave hamburguesa de pollo con aderezos especiales</div>
+                    </div>
+                    <div class="item-price">$100</div>
+                    <div class="quantity-control">
+                        <button class="quantity-btn minus" data-item="hamburguesa-pollo">-</button>
+                        <span class="quantity" id="cantidad-hamburguesa-pollo">0</span>
+                        <button class="quantity-btn plus" data-item="hamburguesa-pollo">+</button>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="item-info">
+                        <div class="item-name">Hamburguesa de Pollo con Papas</div>
+                        <div class="item-description">Hamburguesa de pollo acompañada de papas a la francesa</div>
+                    </div>
+                    <div class="item-price">$140</div>
+                    <div class="quantity-control">
+                        <button class="quantity-btn minus" data-item="hamburguesa-pollo-papas">-</button>
+                        <span class="quantity" id="cantidad-hamburguesa-pollo-papas">0</span>
+                        <button class="quantity-btn plus" data-item="hamburguesa-pollo-papas">+</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="menu-section">
+                <h2>Acompañamientos</h2>
+                <div class="menu-item">
+                    <div class="item-info">
+                        <div class="item-name">Papanachos</div>
+                        <div class="item-description">Crujientes papas nacho con queso y otros toppings</div>
+                    </div>
+                    <div class="item-price">$80</div>
+                    <div class="quantity-control">
+                        <button class="quantity-btn minus" data-item="papanachos">-</button>
+                        <span class="quantity" id="cantidad-papanachos">0</span>
+                        <button class="quantity-btn plus" data-item="papanachos">+</button>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="item-info">
+                        <div class="item-name">Orden de Papas</div>
+                        <div class="item-description">Papas a la francesa con sal y especias</div>
+                    </div>
+                    <div class="item-price">$50</div>
+                    <div class="quantity-control">
+                        <button class="quantity-btn minus" data-item="papas">-</button>
+                        <span class="quantity" id="cantidad-papas">0</span>
+                        <button class="quantity-btn plus" data-item="papas">+</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="menu-section">
+                <h2>Hot Dogs</h2>
+                <div class="menu-item">
+                    <div class="item-info">
+                        <div class="item-name">Hot Dog Jumbo</div>
+                        <div class="item-description">Hot dog grande con todos los ingredientes</div>
+                    </div>
+                    <div class="item-price">$35</div>
+                    <div class="quantity-control">
+                        <button class="quantity-btn minus" data-item="hotdog-jumbo">-</button>
+                        <span class="quantity" id="cantidad-hotdog-jumbo">0</span>
+                        <button class="quantity-btn plus" data-item="hotdog-jumbo">+</button>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="item-info">
+                        <div class="item-name">Hot Dog Salchicha para Asar</div>
+                        <div class="item-description">Hot dog con salchicha premium para asar</div>
+                    </div>
+                    <div class="item-price">$45</div>
+                    <div class="quantity-control">
+                        <button class="quantity-btn minus" data-item="hotdog-salchicha">-</button>
+                        <span class="quantity" id="cantidad-hotdog-salchicha">0</span>
+                        <button class="quantity-btn plus" data-item="hotdog-salchicha">+</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="menu-section">
+                <h2>Bebidas</h2>
+                <div class="menu-item">
+                    <div class="item-info">
+                        <div class="item-name">Refresco</div>
+                        <div class="item-description">Refresco de 500ml de varios sabores</div>
+                    </div>
+                    <div class="item-price">$25</div>
+                    <div class="quantity-control">
+                        <button class="quantity-btn minus" data-item="refresco">-</button>
+                        <span class="quantity" id="cantidad-refresco">0</span>
+                        <button class="quantity-btn plus" data-item="refresco">+</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="menu-section">
+                <h2>Observaciones</h2>
+                <textarea class="observaciones" id="observaciones" placeholder="¿Alguna observación especial para tu pedido? (sin cebolla, extra salsa, etc.)"></textarea>
+            </div>
+            
+            <div class="resumen">
+                <h3>Resumen de tu pedido</h3>
+                <div id="resumen-pedido">
+                    <p>Selecciona productos para ver el resumen</p>
+                </div>
+                <div class="total">
+                    Total: $<span id="total-pedido">0</span>
+                </div>
+            </div>
+            
+            <div class="botones">
+                <button class="btn-cancelar" id="btn-cancelar">Cancelar</button>
+                <button class="btn-confirmar" id="btn-confirmar">Confirmar Pedido</button>
+            </div>
+            
+            <div class="botones-adicionales">
+                <button class="btn-consulta" id="btn-consulta">¿Ya está listo mi pedido?</button>
+                <button class="btn-ubicacion" id="btn-ubicacion">Cómo llegar al restaurante</button>
+                <button class="btn-instalar" id="btn-instalar">Agregar a pantalla principal</button>
+            </div>
+            
+            <div class="instrucciones-instalacion" id="instrucciones-instalacion">
+                <h3>No pierdas este menú - Agrégalo a tu pantalla de inicio</h3>
+                <p>Sigue estos pasos para agregar esta aplicación a tu pantalla principal:</p>
+                <div class="instrucciones-pasos">
+                    <div class="paso"><strong>En Android:</strong> Toca el menú (tres puntos) → "Agregar a pantalla de inicio"</div>
+                    <div class="paso"><strong>En iPhone:</strong> Toca el ícono de compartir → "Agregar a pantalla de inicio"</div>
+                    <div class="paso"><strong>En Safari:</strong> Toca el ícono de compartir → "Agregar a pantalla de inicio"</div>
+                </div>
+                <p>¡Así tendrás acceso rápido al menú cuando quieras ordenar!</p>
+            </div>
+            
+            <div class="ubicacion">
+                <div class="word">Desarrollado por tecnologias Paramo</div>
+            </div>
+        </div>
+        
+        <div id="no-disponible" class="no-disponible" style="display: none;">
+            <h2>Lo sentimos</h2>
+            <p>En este momento no estamos atendiendo.</p>
+            <p>Nuestro horario es de Jueves a Domingo de 8:00 PM a 12:00 AM.</p>
+            <p>¡Te esperamos pronto!</p>
+        </div>
+    </div>
+    
+    <!-- Modal de confirmación -->
+    <div class="modal" id="modal-confirmacion">
+        <div class="modal-content">
+            <h2>Confirma tu pedido</h2>
+            <div class="alerta">
+                <p>Por favor, verifica que tu pedido sea correcto antes de enviarlo.</p>
+                <p>Tiempo estimado de entrega: 15 minutos (puede variar)</p>
+            </div>
+            <div id="confirmacion-detalles"></div>
+            <div class="botones">
+                <button class="btn-cancelar" id="btn-cerrar-modal">Modificar</button>
+                <button class="btn-enviar" id="btn-enviar-whatsapp">Enviar por WhatsApp</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Precios de los productos
+        const precios = {
+            'hamburguesa-res': 60,
+            'hamburguesa-res-papas': 100,
+            'hamburguesa-pollo': 100,
+            'hamburguesa-pollo-papas': 140,
+            'papanachos': 80,
+            'papas': 50,
+            'hotdog-jumbo': 35,
+            'hotdog-salchicha': 45,
+            'refresco': 25
+        };
+        
+        // Nombres de los productos
+        const nombres = {
+            'hamburguesa-res': 'Hamburguesa de Res',
+            'hamburguesa-res-papas': 'Hamburguesa de Res con Papas',
+            'hamburguesa-pollo': 'Hamburguesa de Pollo',
+            'hamburguesa-pollo-papas': 'Hamburguesa de Pollo con Papas',
+            'papanachos': 'Papanachos',
+            'papas': 'Orden de Papas',
+            'hotdog-jumbo': 'Hot Dog Jumbo',
+            'hotdog-salchicha': 'Hot Dog Salchicha para Asar',
+            'refresco': 'Refresco'
+        };
+        
+        // Estado del pedido
+        let pedido = {
+            'hamburguesa-res': 0,
+            'hamburguesa-res-papas': 0,
+            'hamburguesa-pollo': 0,
+            'hamburguesa-pollo-papas': 0,
+            'papanachos': 0,
+            'papas': 0,
+            'hotdog-jumbo': 0,
+            'hotdog-salchicha': 0,
+            'refresco': 0
+        };
+        
+        // Verificar horario de atención
+        function verificarHorario() {
+            const ahora = new Date();
+            const dia = ahora.getDay(); // 0=Domingo, 1=Lunes, ..., 6=Sábado
+            const hora = ahora.getHours();
+            
+            // Jueves=4, Viernes=5, Sábado=6, Domingo=0
+            const diaValido = dia === 0 || dia === 4 || dia === 5 || dia === 6;
+            const horaValida = hora >= 20 || hora < 23.40; // De 8 PM a 12 AM
+            
+            return diaValido && horaValida;
+        }
+        
+        // Mostrar/ocultar menú según horario
+        function actualizarDisponibilidad() {
+            const disponible = verificarHorario();
+            document.getElementById('menu-disponible').style.display = disponible ? 'block' : 'none';
+            document.getElementById('no-disponible').style.display = disponible ? 'none' : 'block';
+            
+            // Deshabilitar botones si no está disponible
+            document.getElementById('btn-confirmar').disabled = !disponible;
+        }
+        
+        // Actualizar cantidad de un producto
+        function actualizarCantidad(item, cambio) {
+            const nuevaCantidad = pedido[item] + cambio;
+            if (nuevaCantidad >= 0) {
+                pedido[item] = nuevaCantidad;
+                document.getElementById(`cantidad-${item}`).textContent = nuevaCantidad;
+                actualizarResumen();
+            }
+        }
+        
+        // Actualizar resumen del pedido
+        function actualizarResumen() {
+            const resumenElemento = document.getElementById('resumen-pedido');
+            const totalElemento = document.getElementById('total-pedido');
+            
+            let html = '';
+            let total = 0;
+            
+            for (const item in pedido) {
+                if (pedido[item] > 0) {
+                    const subtotal = pedido[item] * precios[item];
+                    total += subtotal;
+                    
+                    html += `
+                        <div class="resumen-item">
+                            <span>${nombres[item]} x${pedido[item]}</span>
+                            <span>$${subtotal}</span>
+                        </div>
+                    `;
+                }
+            }
+            
+            if (html === '') {
+                html = '<p>Selecciona productos para ver el resumen</p>';
+            }
+            
+            resumenElemento.innerHTML = html;
+            totalElemento.textContent = total;
+        }
+        
+        // Mostrar modal de confirmación
+        function mostrarConfirmacion() {
+            const modal = document.getElementById('modal-confirmacion');
+            const detalles = document.getElementById('confirmacion-detalles');
+            
+            let html = '';
+            let total = 0;
+            
+            for (const item in pedido) {
+                if (pedido[item] > 0) {
+                    const subtotal = pedido[item] * precios[item];
+                    total += subtotal;
+                    
+                    html += `
+                        <div class="resumen-item">
+                            <span>${nombres[item]} x${pedido[item]}</span>
+                            <span>$${subtotal}</span>
+                        </div>
+                    `;
+                }
+            }
+            
+            const observaciones = document.getElementById('observaciones').value;
+            if (observaciones) {
+                html += `<p><strong>Observaciones:</strong> ${observaciones}</p>`;
+            }
+            
+            html += `<div class="total">Total: $${total}</div>`;
+            
+            detalles.innerHTML = html;
+            modal.style.display = 'flex';
+        }
+        
+        // Enviar pedido por WhatsApp
+        function enviarWhatsApp() {
+            let mensaje = "¡Hola! Me gustaría hacer el siguiente pedido:\n\n";
+            let total = 0;
+            
+            for (const item in pedido) {
+                if (pedido[item] > 0) {
+                    const subtotal = pedido[item] * precios[item];
+                    total += subtotal;
+                    
+                    mensaje += `• ${nombres[item]} x${pedido[item]} - $${subtotal}\n`;
+                }
+            }
+            
+            mensaje += `\nTotal: $${total}\n`;
+            
+            const observaciones = document.getElementById('observaciones').value;
+            if (observaciones) {
+                mensaje += `Observaciones: ${observaciones}\n`;
+            }
+            
+            mensaje += "\nRecogeré en: Colonia Libertad Poniente de Castaños";
+            
+            // Codificar el mensaje para URL
+            const mensajeCodificado = encodeURIComponent(mensaje);
+            
+            // Número de teléfono (formato internacional sin espacios)
+            const telefono = "+528661952635";
+            
+            // Crear enlace de WhatsApp
+            const url = `https://wa.me/${telefono}?text=${mensajeCodificado}`;
+            
+            // Abrir en nueva pestaña
+            window.open(url, '_blank');
+            
+            // Cerrar modal
+            document.getElementById('modal-confirmacion').style.display = 'none';
+            
+            // Limpiar pedido
+            for (const item in pedido) {
+                pedido[item] = 0;
+                document.getElementById(`cantidad-${item}`).textContent = '0';
+            }
+            document.getElementById('observaciones').value = '';
+            actualizarResumen();
+            
+            alert('¡Pedido enviado! Te contactaremos pronto para confirmar.');
+        }
+        
+        // Consultar estado del pedido
+        function consultarEstado() {
+            const telefono = "+528661952635";
+            const mensaje = encodeURIComponent("Hola, quisiera consultar el estado de mi pedido. ¿Podrían decirme si ya está listo?");
+            const url = `https://wa.me/${telefono}?text=${mensaje}`;
+            window.open(url, '_blank');
+        }
+        
+        // Abrir ubicación en mapa
+        function abrirUbicacion() {
+            const direccion = "Colonia Libertad Poniente, Castaños, Coahuila, México";
+            const url = `https://maps.app.goo.gl/XUBTJqu1hECPejSp9`;
+            window.open(url, '_blank');
+        }
+        
+        // Mostrar instrucciones para agregar a pantalla principal
+        function mostrarInstruccionesInstalacion() {
+            const instrucciones = document.getElementById('instrucciones-instalacion');
+            instrucciones.style.display = 'block';
+            
+            // Desplazar hacia las instrucciones
+            instrucciones.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Inicializar eventos
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verificar disponibilidad
+            actualizarDisponibilidad();
+            
+            // Actualizar cada minuto para verificar cambios de horario
+            setInterval(actualizarDisponibilidad, 60000);
+            
+            // Eventos para botones de cantidad
+            document.querySelectorAll('.quantity-btn.plus').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const item = this.getAttribute('data-item');
+                    actualizarCantidad(item, 1);
+                });
+            });
+            
+            document.querySelectorAll('.quantity-btn.minus').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const item = this.getAttribute('data-item');
+                    actualizarCantidad(item, -1);
+                });
+            });
+            
+            // Evento para botón de confirmar
+            document.getElementById('btn-confirmar').addEventListener('click', function() {
+                // Verificar que haya al menos un producto en el pedido
+                let tieneProductos = false;
+                for (const item in pedido) {
+                    if (pedido[item] > 0) {
+                        tieneProductos = true;
+                        break;
+                    }
+                }
+                
+                if (!tieneProductos) {
+                    alert('Por favor, selecciona al menos un producto antes de confirmar.');
+                    return;
+                }
+                
+                mostrarConfirmacion();
+            });
+            
+            // Evento para botón de cancelar
+            document.getElementById('btn-cancelar').addEventListener('click', function() {
+                if (confirm('¿Estás seguro de que quieres cancelar el pedido? Se perderán todos los productos seleccionados.')) {
+                    for (const item in pedido) {
+                        pedido[item] = 0;
+                        document.getElementById(`cantidad-${item}`).textContent = '0';
+                    }
+                    document.getElementById('observaciones').value = '';
+                    actualizarResumen();
+                }
+            });
+            
+            // Eventos para el modal
+            document.getElementById('btn-cerrar-modal').addEventListener('click', function() {
+                document.getElementById('modal-confirmacion').style.display = 'none';
+            });
+            
+            document.getElementById('btn-enviar-whatsapp').addEventListener('click', enviarWhatsApp);
+            
+            // Eventos para los botones adicionales
+            document.getElementById('btn-consulta').addEventListener('click', consultarEstado);
+            document.getElementById('btn-ubicacion').addEventListener('click', abrirUbicacion);
+            document.getElementById('btn-instalar').addEventListener('click', mostrarInstruccionesInstalacion);
+
+			//footer de presentacion
+			var words = ['Hi i like HTML', 'I also like css', 'Lorem ipsum dolor sit amet', ' consectetur adipiscing elit', 'sed do eiusmod tempor incididunt'],
+			    part,
+			    i = 0,
+			    offset = 0,
+			    len = words.length,
+			    forwards = true,
+			    skip_count = 0,
+			    skip_delay = 15,
+			    speed = 70;
+			var wordflick = function () {
+			  setInterval(function () {
+			    if (forwards) {
+			      if (offset >= words[i].length) {
+			        ++skip_count;
+			        if (skip_count == skip_delay) {
+			          forwards = false;
+			          skip_count = 0;
+			        }
+			      }
+			    }
+			    else {
+			      if (offset == 0) {
+			        forwards = true;
+			        i++;
+			        offset = 0;
+			        if (i >= len) {
+			          i = 0;
+			        }
+			      }
+			    }
+			    part = words[i].substr(0, offset);
+			    if (skip_count == 0) {
+			      if (forwards) {
+			        offset++;
+			      }
+			      else {
+			        offset--;
+			      }
+			    }
+			    $('.word').text(part);
+			  },speed);
+			};
+			
+			$(document).ready(function () {
+			  wordflick();
+			});
+			
+			Resources
+
+        });
+    </script>
+</body>
+</html>
