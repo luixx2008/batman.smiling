@@ -533,7 +533,7 @@
         <div id="no-disponible" class="no-disponible" style="display: none;">
             <h2>Lo sentimos</h2>
             <p>En este momento no estamos atendiendo.</p>
-            <p>Nuestro horario es de Jueves a Domingo de 8:00 PM a 12:00 AM.</p>
+            <p>Nuestro horario es de Jueves a Domingo de 7:00 PM a 12:00 AM.</p>
             <p>¡Te esperamos pronto!</p>
         </div>
     </div>
@@ -602,7 +602,7 @@
             
             // Jueves=4, Viernes=5, Sábado=6, Domingo=0
             const diaValido = dia === 0 || dia === 4 || dia === 5 || dia === 6;
-            const horaValida = hora >= 20 && hora < 23.40; // De 8 PM a 12 AM
+            const horaValida = hora >= 19 && hora < 23.40; // De 8 PM a 12 AM
            
             return diaValido && horaValida;
         }
