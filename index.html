@@ -603,7 +603,7 @@
             // Jueves=4, Viernes=5, Sábado=6, Domingo=0
             const diaValido = dia === 0 || dia === 4 || dia === 5 || dia === 6;
             const horaValida = hora >= 19 && hora < 23.40; // De 8 PM a 12 AM
-           
+           return true;
             return diaValido && horaValida;
         }
         
